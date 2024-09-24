@@ -23,7 +23,7 @@ def main():
    # overlay the shirt with Image.paste
    ovelayed_image = overlayer_images(resized_image, overlayer_image)
    # save the image
-   ovelayed_image.Image.save(
+   ovelayed_image.save(
        fp = sys.argv[2]
    )
 
@@ -33,9 +33,12 @@ def open_image(image: str):
     except FileNotFoundError:
         sys.exit('Input does not exist')
 
-def resize_and_crop(image: Image):
+def resize_and_crop(image: Image.Image):
     return ImageOps.fit(image, size=(600, 600))
 
-def overlayer_images(image_backgound: Image, image_front: Image):
-    image_backgound.Image.paste(im= image_front)
+def overlayer_images(image_backgound: Image.Image, image_front: Image.Image):
+    image_backgound.paste(image_front, mask= image_front)
     return image_backgound
+
+if __name__ == '__main__':
+    main()
